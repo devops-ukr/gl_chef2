@@ -1,0 +1,16 @@
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = '2'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = 'bento/centos-6.9'
+
+  config.vbguest.auto_update = false
+  config.omnibus.chef_version = "12.19.36"
+
+  config.vm.define "lab4" do |lab4|
+    lab4.vm.hostname = 'lab4.local'
+    lab4.vm.provision 'chef_solo' do |chef|
+      chef.add_recipe 'gl_lab4'
+    end
+  end
+end
